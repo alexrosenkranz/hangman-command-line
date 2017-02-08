@@ -1,4 +1,5 @@
 var figlet = require('figlet');
+var colors = require('colors');
 
 function Word(pickedWord) {
     this.pickedWord = pickedWord;
@@ -7,7 +8,18 @@ function Word(pickedWord) {
     this.workingPlaceHolder;
 }
 
+// set theme 
+colors.setTheme({
+    verbose: 'cyan',
+    info: 'green',
+    help: 'cyan',
+    warn: 'yellow',
+    debug: 'blue',
+    error: 'red'
+});
+
 Word.prototype.checkLetter = function(guessedLetter, place, guessPrompt, letterArray, newGame) {
+    guessedLetter = guessedLetter.toUpperCase();
     var spaces = this.pickedWord.split(" ").length - 1;
     if (!letterArray.includes(guessedLetter)) {
         for (var i = 0; i < this.pickedWord.length; i++) {
@@ -22,21 +34,25 @@ Word.prototype.checkLetter = function(guessedLetter, place, guessPrompt, letterA
         }
         if (!this.pickedWord.includes(guessedLetter)) {
             this.guessesCount--;
-        };
+        }
         letterArray.push(guessedLetter);
-        console.log('Correct: ' + this.correctCount + ' || Guesses Left: ' + this.guessesCount);
+        console.log(colors.error('Correct: ' + this.correctCount + ' || Guesses Left: ' + this.guessesCount));
         console.log('===================');
-        console.log(this.workingPlaceHolder);
+        console.log(colors.debug("Guess the word/phrase: " + this.workingPlaceHolder));
+        console.log('===================');
         if (this.correctCount === (this.pickedWord.length - spaces)) {
-            figlet('You win!! \n', function(err, data) {
+            figlet('You win!!', function(err, data) {
                 if (err) {
                     console.log('Something went wrong...');
                     console.dir(err);
                     return;
                 }
-                console.log(data)
+                console.log('===================');
+                console.log(data);
+                console.log('===================');
+                newGame();
             });
-            newGame();
+
         } else if (this.guessesCount <= 0) {
             figlet('You lose!!', function(err, data) {
                 if (err) {
@@ -44,17 +60,20 @@ Word.prototype.checkLetter = function(guessedLetter, place, guessPrompt, letterA
                     console.dir(err);
                     return;
                 }
-                console.log(data)
+                console.log('===================');
+                console.log(data);
+                console.log('===================');
+                newGame();
             });
-            newGame();
+
         } else {
             guessPrompt();
         }
     } else {
-        console.log("you already picked this letter, go again!");
+        console.log(colors.verbose("You already picked this letter, go again!"));
         console.log('===================');
         guessPrompt();
     }
-}
+};
 
 module.exports = Word;

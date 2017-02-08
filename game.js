@@ -2,15 +2,25 @@ var inquirer = require('inquirer');
 var Word = require('./Word.js');
 var Letter = require('./Letter.js');
 var figlet = require('figlet');
+var colors = require('colors');
 
-var wordArr = ['alex rosenkranz', 'bodie', 'cassie'];
+// set theme 
+colors.setTheme({
+    verbose: 'cyan',
+    info: 'green',
+    help: 'cyan',
+    warn: 'yellow',
+    debug: 'blue',
+    error: 'red'
+});
+
+var wordArr = ['THE JUAN MACLEAN', 'LCD SOUNDSYSTEM', 'HOLY GHOST', 'FLOATING POINTS', 'TENSNAKE'];
 var newWord;
 var letterObj;
 
 function chooseWord() {
     var pickedIndex = wordArr[Math.floor(Math.random() * wordArr.length)];
     newWord = new Word(pickedIndex);
-    console.log(newWord);
 }
 
 // Create function that holds inquirer prompt to start new game
@@ -21,12 +31,23 @@ function newGamePrompt() {
         message: "Do you want to start a new game of hangman?",
     }]).then(function(answer) {
         if (answer.game) {
-            chooseWord();
-            letterObj = new Letter();
-            letterObj.holdPlaces(newWord);
-            letterGuess();
+            figlet('Good Luck!!', function(err, data) {
+                if (err) {
+                    console.log('Something went wrong...');
+                    console.dir(err);
+                    return;
+                }
+                console.log('===================');
+                console.log(data);
+                console.log('===================');
+                chooseWord();
+                letterObj = new Letter();
+                letterObj.holdPlaces(newWord);
+                letterGuess();
+            });
+
         } else {
-            console.log('Restart by typing "node game.js" into your command line. If you are done, enjoy the rest of your day!');
+            console.log(colors.error('Restart by typing "node game.js" into your command line. If you are done, enjoy the rest of your day!'));
         }
     });
 }

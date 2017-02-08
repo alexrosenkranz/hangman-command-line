@@ -1,3 +1,15 @@
+var colors = require('colors');
+
+// set theme 
+colors.setTheme({
+    verbose: 'cyan',
+    info: 'green',
+    help: 'cyan',
+    warn: 'yellow',
+    debug: 'blue',
+    error: 'red'
+});
+
 function Letter(pickedLetter) {
     this.pickedLetter = pickedLetter;
     this.placeHolder = "";
@@ -13,7 +25,7 @@ Letter.prototype.holdPlaces = function(w) {
         }
     }
     this.placeHolder = this.placeHolder.slice(0);
-    console.log(this.placeHolder);
+    console.log(colors.debug("Guess the word/phrase: " + this.placeHolder));
 };
 
 module.exports = Letter;
