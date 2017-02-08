@@ -14,6 +14,6 @@ Letter.prototype.holdPlaces = function(w) {
     }
     this.placeHolder = this.placeHolder.slice(0);
     console.log(this.placeHolder);
-}
+};
 
 module.exports = Letter;

@@ -1,13 +1,14 @@
 var inquirer = require('inquirer');
 var Word = require('./Word.js');
 var Letter = require('./Letter.js');
+var figlet = require('figlet');
 
-const wordArr = ['alex rosenkranz', 'bodie', 'cassie'];
+var wordArr = ['alex rosenkranz', 'bodie', 'cassie'];
 var newWord;
 var letterObj;
 
 function chooseWord() {
-    let pickedIndex = wordArr[Math.floor(Math.random() * wordArr.length)];
+    var pickedIndex = wordArr[Math.floor(Math.random() * wordArr.length)];
     newWord = new Word(pickedIndex);
     console.log(newWord);
 }
@@ -38,7 +39,6 @@ function letterGuess() {
         name: "letter",
         message: "Pick a letter and hit enter/return.",
     }]).then(function(data) {
-        newWord.checkLetter(data.letter, letterObj.placeHolder, letterGuess, letterObj.lettersGuessed);
+        newWord.checkLetter(data.letter, letterObj.placeHolder, letterGuess, letterObj.lettersGuessed, newGamePrompt);
     });
 }
-// if letter guessed is correct
