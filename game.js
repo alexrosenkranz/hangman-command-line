@@ -38,7 +38,7 @@ function letterGuess() {
         name: "letter",
         message: "Pick a letter and hit enter/return.",
     }]).then(function(data) {
-        newWord.checkLetter(data.letter, letterObj.placeHolder, letterGuess);
+        newWord.checkLetter(data.letter, letterObj.placeHolder, letterGuess, letterObj.lettersGuessed);
     });
 }
 // if letter guessed is correct

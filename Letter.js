@@ -1,6 +1,7 @@
 function Letter(pickedLetter) {
     this.pickedLetter = pickedLetter;
     this.placeHolder = "";
+    this.lettersGuessed = [];
 }
 
 Letter.prototype.holdPlaces = function(w) {
