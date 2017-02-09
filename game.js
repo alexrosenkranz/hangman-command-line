@@ -3,6 +3,8 @@ var Word = require('./Word.js');
 var Letter = require('./Letter.js');
 var figlet = require('figlet');
 var colors = require('colors');
+var clear = require('cli-clear');
+
 
 // set theme 
 colors.setTheme({
@@ -14,9 +16,9 @@ colors.setTheme({
     error: 'red'
 });
 
-var wordArr = ['THE JUAN MACLEAN', 'LCD SOUNDSYSTEM', 'HOLY GHOST', 'FLOATING POINTS', 'TENSNAKE'];
-var newWord;
-var letterObj;
+const wordArr = ['THE JUAN MACLEAN', 'LCD SOUNDSYSTEM', 'HOLY GHOST', 'FLOATING POINTS', 'TENSNAKE'];
+let newWord;
+let letterObj;
 
 function chooseWord() {
     var pickedIndex = wordArr[Math.floor(Math.random() * wordArr.length)];
@@ -30,6 +32,7 @@ function newGamePrompt() {
         name: "game",
         message: "Do you want to start a new game of hangman?",
     }]).then(function(answer) {
+        clear();
         if (answer.game) {
             figlet('Good Luck!!', function(err, data) {
                 if (err) {
@@ -59,7 +62,12 @@ function letterGuess() {
         type: "input",
         name: "letter",
         message: "Pick a letter and hit enter/return.",
+        validate: function(value) {
+            var regexp = /^[a-zA-Z]{1}$/gi;
+            return regexp.test(value) ? true : "please enter only one letter";
+        }
     }]).then(function(data) {
+        clear();
         newWord.checkLetter(data.letter, letterObj.placeHolder, letterGuess, letterObj.lettersGuessed, newGamePrompt);
     });
 }

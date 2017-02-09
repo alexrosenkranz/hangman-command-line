@@ -67,9 +67,11 @@ Word.prototype.checkLetter = function(guessedLetter, place, guessPrompt, letterA
             });
 
         } else {
+
             guessPrompt();
         }
     } else {
+
         console.log(colors.verbose("You already picked this letter, go again!"));
         console.log('===================');
         guessPrompt();
