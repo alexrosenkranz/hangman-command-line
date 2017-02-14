@@ -16,12 +16,12 @@ colors.setTheme({
     error: 'red'
 });
 
-const wordArr = ['THE JUAN MACLEAN', 'LCD SOUNDSYSTEM', 'HOLY GHOST', 'FLOATING POINTS', 'TENSNAKE'];
+const wordArr = ['THE JUAN MACLEAN', 'LCD SOUNDSYSTEM', 'HOLY GHOST', 'FLOATING POINTS', 'TENSNAKE', 'MIDNIGHT MAGIC', 'HERCULES AND LOVE AFFAIR', 'SOULWAX', 'NICHOLAS JAAR', 'BONOBO', 'FOUR TET'];
 let newWord;
 let letterObj;
 
 function chooseWord() {
-    var pickedIndex = wordArr[Math.floor(Math.random() * wordArr.length)];
+    let pickedIndex = wordArr[Math.floor(Math.random() * wordArr.length)];
     newWord = new Word(pickedIndex);
 }
 
